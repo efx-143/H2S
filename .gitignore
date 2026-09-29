@@ -1,0 +1,15 @@
+# Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+backend/agro_dpg.db
+
+# Node / Expo
+mobile_app/node_modules/
+mobile_app/.expo/
+mobile_app/dist/
+mobile_app/npm-debug.log*
+mobile_app/yarn-debug.log*
+mobile_app/yarn-error.log*
+mobile_app/.pnp
+mobile_app/.pnp.js

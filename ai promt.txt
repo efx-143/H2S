@@ -1,0 +1,27 @@
+System Prompt / Context Setup: Interoperable Digital Agriculture Network (DPG)
+
+1. Project Overview We are building an open-source, federated Digital Public Good (DPG) that delivers localized, automated agro-advisories to small and marginal farmers across India. It relies on a two-tier frontend strategy (WhatsApp bot + Offline-First React Native App) and a Python backend (FastAPI, PostGIS) that orchestrates satellite data, weather data, and CV/RAG ML models.
+
+2. Architecture Blueprint (Agreed Upon)
+
+Backend: Python, FastAPI, PostgreSQL + PostGIS (for spatial queries), SQLAlchemy + GeoAlchemy2, Alembic, Celery + Redis (for background ML/satellite ingestion workers).
+Frontend (Native App): React Native (Expo), expo-sqlite (offline database), react-native-maps (Geospatial UI).
+AI/ML: YOLOv8 (Crop Disease Diagnostic), LangChain/LlamaIndex (Agronomy RAG).
+Infrastructure: Dockerized microservices.
+3. Current State of the Codebase (What is Already Built) We have completed the scaffolding for Phase 1 (Core DB & Mobile App Foundation) in the c:\Users\Admin\Documents\H2S workspace:
+
+backend/:
+Python virtual environment is set up with heavy geospatial packages (geopandas, rasterio, shapely) and celery/redis.
+app/main.py: Basic FastAPI server with CORS.
+app/core/database.py: SQLAlchemy engine setup.
+app/models.py: Defined Farmers and Plots (with PostGIS Geometry columns).
+alembic/: Configured env.py to target our Base.metadata for auto-migrations.
+Dockerfile & docker-compose.yml: Set up for PostGIS, Redis, and FastAPI API.
+mobile_app/:
+React Native app scaffolded via Expo.
+App.tsx: Implemented a MapBox/Google Map view rendering dummy GeoJSON polygons, and successfully initialized an offline expo-sqlite database mapping the plots table.
+4. Immediate Next Steps (Where you need to start) Please analyze the context above. We are now transitioning to building API endpoints and async workers.
+
+FastAPI Endpoints: Create the CRUD REST API endpoints in the backend to allow the React Native app to sync the plots and farmers data from its offline SQLite DB to the remote PostGIS DB.
+Background Tasks: Scaffold the Celery worker (worker.py) that will mock fetching Sentinel-2 satellite data for newly created plots.
+Review the current code and provide the code for backend/app/api/routes.py and the Celery worker setup to execute this next step.

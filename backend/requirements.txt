@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+geoalchemy2
+alembic
+psycopg2-binary
+pydantic
+pydantic-settings
+python-multipart
+celery
+redis
+geopandas
+rasterio
+shapely
+requests
