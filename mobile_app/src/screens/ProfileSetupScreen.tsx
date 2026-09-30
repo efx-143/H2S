@@ -6,11 +6,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function ProfileSetupScreen({ navigation }: any) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [language, setLanguage] = useState('English');
 
   const handleNext = async () => {
     if (name.trim()) {
       await AsyncStorage.setItem('farmer_name', name);
       await AsyncStorage.setItem('farmer_phone', phone);
+      await AsyncStorage.setItem('farmer_language', language);
       navigation.navigate('SetupMap');
     }
   };
@@ -31,7 +33,7 @@ export default function ProfileSetupScreen({ navigation }: any) {
           />
         </View>
 
-        <View style={tw`mb-10`}>
+        <View style={tw`mb-6`}>
           <Text style={tw`text-gray-700 font-bold mb-2`}>Phone Number (Optional)</Text>
           <TextInput 
             style={tw`bg-gray-100 p-4 rounded-xl text-lg text-gray-900`} 
@@ -40,6 +42,21 @@ export default function ProfileSetupScreen({ navigation }: any) {
             value={phone}
             onChangeText={setPhone}
           />
+        </View>
+
+        <View style={tw`mb-10`}>
+          <Text style={tw`text-gray-700 font-bold mb-2`}>Preferred Language</Text>
+          <View style={tw`flex-row justify-between`}>
+            {['English', 'Hindi', 'Marathi'].map((lang) => (
+              <TouchableOpacity
+                key={lang}
+                style={[tw`flex-1 p-4 rounded-xl mx-1 items-center border`, language === lang ? tw`bg-green-100 border-green-500` : tw`bg-white border-gray-300`]}
+                onPress={() => setLanguage(lang)}
+              >
+                <Text style={[tw`font-bold`, language === lang ? tw`text-green-700` : tw`text-gray-600`]}>{lang}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
 
         <TouchableOpacity 

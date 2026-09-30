@@ -13,3 +13,7 @@ mobile_app/yarn-debug.log*
 mobile_app/yarn-error.log*
 mobile_app/.pnp
 mobile_app/.pnp.js
+
+# Env
+.env
+backend/.env

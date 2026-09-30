@@ -37,3 +37,23 @@ class Plot(PlotBase):
     class Config:
         orm_mode = True
         from_attributes = True
+
+class DiagnosticRequest(BaseModel):
+    image_base64: str
+    crop_type: Optional[str] = "Unknown"
+    language: Optional[str] = "English"
+
+class DiagnosticResponse(BaseModel):
+    disease_name: str
+    confidence: float
+    treatment_advisory: str
+
+class AdvisoryRequest(BaseModel):
+    crop_type: str
+    coordinates: Optional[Any] = None
+    language: Optional[str] = "English"
+
+class AdvisoryResponse(BaseModel):
+    title: str
+    message: str
+    icon: str

@@ -5,16 +5,27 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProfileScreen() {
   const [name, setName] = useState('Farmer');
+  const [language, setLanguage] = useState('English');
 
   useEffect(() => {
     AsyncStorage.getItem('farmer_name').then(val => {
       if (val) setName(val);
+    });
+    AsyncStorage.getItem('farmer_language').then(val => {
+      if (val) setLanguage(val);
     });
   }, []);
 
   const handleReset = async () => {
     await AsyncStorage.removeItem('hasCompletedOnboarding');
     alert('Onboarding reset! Please refresh the app to see the Welcome screen again.');
+  };
+
+  const toggleLanguage = async () => {
+    const langs = ['English', 'Hindi', 'Marathi'];
+    const nextLang = langs[(langs.indexOf(language) + 1) % langs.length];
+    setLanguage(nextLang);
+    await AsyncStorage.setItem('farmer_language', nextLang);
   };
 
   return (
@@ -31,14 +42,20 @@ export default function ProfileScreen() {
         <View style={tw`bg-white rounded-3xl p-6 shadow-sm border border-gray-100 mb-6`}>
           <Text style={tw`text-lg font-bold text-gray-800 mb-4`}>Settings</Text>
           
-          <TouchableOpacity style={tw`py-3 border-b border-gray-100 flex-row justify-between items-center`}>
-            <Text style={tw`text-gray-700 text-lg`}>Edit Farm Location</Text>
+          <TouchableOpacity style={tw`py-4 border-b border-gray-100 flex-row justify-between items-center`}>
+            <Text style={tw`text-gray-700 text-lg`}>Edit Farm</Text>
             <Text style={tw`text-gray-400`}>→</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={tw`py-3 border-b border-gray-100 flex-row justify-between items-center`}>
-            <Text style={tw`text-gray-700 text-lg`}>Language</Text>
-            <Text style={tw`text-gray-500`}>English</Text>
+          <TouchableOpacity 
+            style={tw`py-4 border-b border-gray-100 flex-row justify-between items-center`}
+            onPress={toggleLanguage}
+          >
+            <Text style={tw`text-gray-700 text-lg font-medium`}>Change Language</Text>
+            <View style={tw`flex-row items-center`}>
+              <Text style={tw`text-green-600 font-bold text-lg mr-2`}>{language}</Text>
+              <Text style={tw`text-gray-400`}>🔄</Text>
+            </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={tw`py-3 flex-row justify-between items-center`} onPress={handleReset}>
