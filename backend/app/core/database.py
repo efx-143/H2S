@@ -4,10 +4,13 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 
 # Default to a local connection if not provided (e.g. for testing outside docker)
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", 
-    "sqlite:///./agro_dpg.db"
-)
+if os.getenv("VERCEL"):
+    DATABASE_URL = "sqlite:////tmp/agro_dpg.db"
+else:
+    DATABASE_URL = os.getenv(
+        "DATABASE_URL", 
+        "sqlite:///./agro_dpg.db"
+    )
 
 # For docker-compose, the host is usually 'db'
 if os.getenv("DOCKER_ENV"):
