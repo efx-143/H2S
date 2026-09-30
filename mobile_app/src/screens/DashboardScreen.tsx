@@ -26,7 +26,7 @@ export default function DashboardScreen() {
             }
           }
           
-          const response = await fetch('http://172.16.30.34:8000/api/v1/advisory/', {
+          const response = await fetch('https://h2-s-backend-1xee.vercel.app/api/v1/advisory/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -57,7 +57,7 @@ export default function DashboardScreen() {
       const lang = await AsyncStorage.getItem('farmer_language') || 'English';
 
       // 1. Sync Farmer
-      const farmerResponse = await fetch('http://172.16.30.34:8000/api/v1/farmers/', {
+      const farmerResponse = await fetch('https://h2-s-backend-1xee.vercel.app/api/v1/farmers/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -93,7 +93,7 @@ export default function DashboardScreen() {
           geomPolygon = parsedCoordinates.map((coord: any) => [coord.longitude, coord.latitude]);
         }
 
-        const plotResponse = await fetch('http://172.16.30.34:8000/api/v1/plots/', {
+        const plotResponse = await fetch('https://h2-s-backend-1xee.vercel.app/api/v1/plots/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

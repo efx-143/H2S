@@ -30,7 +30,7 @@ export default function ScannerScreen() {
     setDiagnosis(null);
     try {
       const lang = await AsyncStorage.getItem('farmer_language') || 'English';
-      const response = await fetch('http://172.16.30.34:8000/api/v1/diagnostics/', {
+      const response = await fetch('https://h2-s-backend-1xee.vercel.app/api/v1/diagnostics/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
